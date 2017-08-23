@@ -1,3 +1,5 @@
+// hard
+
 // This solution is so clever that I think so hard to understand it.
 // height counts the number of successive '1's above (plus the current one). The value of left & right means the boundaries of the rectangle which contains the current point with a height of value height.
 
