@@ -1,2 +1,2 @@
 # leetcode
-My note for leetcode
+This my note for leetcode
