@@ -24,7 +24,7 @@ class Solution {
         return getMin(rList) + getMin(cList);
     }
 
-    // no idea
+    // 这个原理以前不知道,取median会使得偏差之和最小
     private int getMin(List<Integer> lst)
     {
         int s = 0;
