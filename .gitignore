@@ -1,0 +1,14 @@
+# ignore excel
+OA.xlsx
+
+# my weak part
+weak_part.txt
+
+# ignore entire folder
+# /folder_name/
+
+# ignore a file type
+#*.json
+
+# add an exception (using !) to the preceding rule to track a specific file
+#!package.json
