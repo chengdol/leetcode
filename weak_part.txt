@@ -4,3 +4,6 @@ DP 的题还要集中练习一下
 树相关的题
 图相关的题， union find
 sliding windows
+
+bst inorder preorder postorder
+0-1 knapsack
