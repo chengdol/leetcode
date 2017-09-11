@@ -1,5 +1,6 @@
 // medium
 
+// easy to do with dfs
 class Solution {
     public int nextGreaterElement(int n) {
 
