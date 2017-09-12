@@ -32,7 +32,7 @@ class Solution {
 
             // update range value
             range[pos % 2]--;
-            // update direction
+            // update direction, 在4个dir中循环
             pos = (pos + 1) % 4;
         }
 
