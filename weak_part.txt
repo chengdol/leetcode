@@ -1,9 +1,20 @@
 DP 的题还要集中练习一下,lc上有分类
 字符串处理，相关算法
-基本排序的实现
+
+基本排序的实现, mergessort, quicksort, quickselect
+random for shuffle in quciksort,但如果有deuplicates仍然最坏n^2
+duplicate keys handling: stop on keys equal to the partitioning item's key!
+这时还不是3way quicksort，相同key在sort的途中并没有连接在一起
+
+3-way quick sort
+
+
+
 树相关的题
 图相关的题， union find
-sliding windows
+sliding windows, substring and sequence 有模板
+
+java read input from file args忘了，一行一行读，取参数等
 
 bst inorder preorder postorder
 0-1 knapsack
