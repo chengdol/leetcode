@@ -28,3 +28,5 @@ class Solution {
         return n;
     }
 }
+
+// 用iteratiove也可以，造一个dummy head操作会方便很多，最后返回head.hext
