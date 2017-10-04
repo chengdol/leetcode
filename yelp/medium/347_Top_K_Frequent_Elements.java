@@ -5,8 +5,8 @@ class Solution {
     public List<Integer> topKFrequent(int[] nums, int k) {
 
         // 一共有nums.length个数，那么最高freq不会超过length!
-        // 如何build list array:
-        List<Integer>[] buckets = new List[nums.length + 1];
+        // 如何build list array, namely generic array!居然忘了
+        List<Integer>[] buckets = (List<Integer>[]) new List[nums.length + 1];
 
         Map<Integer, Integer> freq = new HashMap<>();
         for (int n : nums)
