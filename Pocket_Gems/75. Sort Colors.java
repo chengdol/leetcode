@@ -1,5 +1,19 @@
 // medium
 
+// facebook 做过，忘了
+// 可以two-pass or nooe pass
+// two pass 可以用bucket sort, 刚好0,1,2就是index
+// 这样省去了大量的if-else
+// two-pass
+private static final int MAX = 3;
+
+public void sortColors(int[] nums) {
+    int[] buckets = new int[MAX];
+    for(int num : nums) buckets[num]++;
+    for(int p = 0, val = 0; val < MAX; val++) {
+        for(int count = 0; count < buckets[val]; count++) {
+            nums[p++] = val;
+        }
 
 // one pass
 class Solution {
