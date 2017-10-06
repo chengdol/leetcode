@@ -33,6 +33,7 @@ class Solution {
         return left == null? n : left;
     }
 }
+
 // find predecessor
 class Solution {
 
