@@ -1,4 +1,4 @@
-DP 的题还要集中练习一下,lc上有分类
+DP 的题还要集中练习一下,lc上有分类, pg面试连接上有专门的文章
 字符串处理，相关算法，忘了
 KMP, DFA(how to build lookup table?)
 
