@@ -24,3 +24,64 @@ class Solution {
         return -1;
     }
 }
+
+// KMP
+class Solution {
+    public int strStr(String haystack, String needle)
+    {
+        if (needle.isEmpty()) { return 0; }
+
+        int[] next = new int[needle.length()];
+        // create KMP next table
+        int i = 0;
+        for (int j = 1; j < needle.length(); )
+        {
+            if (needle.charAt(i) == needle.charAt(j))
+            {
+                next[j] = i + 1;
+                i++;
+                j++;
+            }
+            else
+            {
+                // 构造的时候这里错了, 注意是i的变化不是j
+                if (i > 0 && needle.charAt(i) != needle.charAt(j)) { i = next[i - 1]; }
+                else if (i == 0 && needle.charAt(i) != needle.charAt(j))
+                {
+                    next[j] = 0;
+                    j++;
+                }
+                else
+                {
+                    next[j] = i + 1;
+                    j++;
+                    i++;
+                }
+            }
+        }
+
+        i = 0;
+        int j = 0;
+        while (i < haystack.length())
+        {
+            if (haystack.charAt(i) == needle.charAt(j))
+            {
+                i++;
+                j++;
+            }
+
+            // return start index
+            if (j == needle.length()) { return i - j; }
+
+            else if (i < haystack.length() && haystack.charAt(i) != needle.charAt(j))
+            {
+                // 这里j可能会往回走几次
+                if (j != 0) { j = next[j - 1]; }
+                // 上一次j = 0时，已经判断或了，这是第二次j = 0，说明s[i]确实不相等，可以后移了
+                else { i++; }
+            }
+
+        }
+        return -1;
+    }
+}

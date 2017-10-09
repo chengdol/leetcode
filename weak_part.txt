@@ -6,6 +6,7 @@ KMP, DFA(how to build lookup table?)
 random for shuffle in quciksort,但如果有deuplicates仍然最坏n^2
 duplicate keys handling: stop on keys equal to the partitioning item's key!
 这时还不是3way quicksort，相同key在sort的途中并没有连接在一起
+binary search的边界条件
 
 3-way quick sort
 
