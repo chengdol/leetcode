@@ -73,6 +73,7 @@ class Solution {
             // 这里不用关系出边界，因为数组至少有2个元素了
             while (nums[++i] < nums[lo])
             {
+                // 注意这里的边界条件
                 if (i == hi) { break; }
             }
 
