@@ -1,39 +1,21 @@
 // medium
 
+// 方法很巧妙
 class Solution {
-    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4) {
+    public boolean validSquare(int[] p1, int[] p2, int[] p3, int[] p4)
+    {
+        // all 6 sides
+        List<Integer> sides = Arrays.asList(sideLen(p1, p2), sideLen(p1, p3), sideLen(p1, p4)
+                                           , sideLen(p2, p3), sideLen(p4, p3), sideLen(p2, p4));
+        // if sqare, 4 sides equal and 2 sides are longest (diagnoal)
+        Set<Integer> set = new HashSet<>(sides);
 
-        // inputs are all integers
-        // if suqare 4 edges and 2 diagonal must be the same length, and diagonal > edge length
-        long[] lens = {squareLen(p1, p2), squareLen(p2, p3), squareLen(p3, p4), squareLen(p4, p1), squareLen(p1, p3), squareLen(p2, p4)};
-
-        // check
-        // find diagonal and normal edge square length
-        long diag = lens[0];
-        long edge = lens[0];
-        for (long len : lens)
-        {
-            if (len > diag) { diag = len; }
-            if (len < edge) { edge = len; }
-        }
-
-        if (diag <= edge) { return false; }
-
-        int cntDiag = 0;
-        int cntEdge = 0;
-        for (long len : lens)
-        {
-            if (len == diag) { cntDiag++; }
-            else if (len == edge) { cntEdge++; }
-        }
-
-        if (cntDiag != 2 || cntEdge != 4) { return false; }
-
-        return true;
+        // no 0 length side and remain 2 sides
+        return set.size() == 2 && !set.contains(0);
     }
 
-    private long squareLen(int[] a, int[] b)
+    private int sideLen(int[] a, int[] b)
     {
-        return (long)(Math.pow(a[1] - b[1], 2) + Math.pow(a[0] - b[0], 2));
+        return (a[0] - b[0]) * (a[0] - b[0]) + (a[1] - b[1]) * (a[1] - b[1]);
     }
 }
