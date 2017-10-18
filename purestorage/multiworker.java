@@ -26,13 +26,13 @@ class multiworker
         // create thread to execute function in queue?
         // 注意，是所有函数考开始执行，不是执行结束后再执行callback
         int i = 0;
-        f[] arr = new f[que.size()];
+        FunThread[] arr = new FunThread[que.size()];
         while (!que.isEmpty())
         {
             f fun = que.poll();
             // create new thread with fun f which implements runnable interface
-            f[i] = new FunThread(f);
-            f[i++].start();
+            FunThread[i] = new FunThread(f);
+            FunThread[i++].start();
         }
 
         // join these threads(这是执行结束后)
@@ -42,7 +42,7 @@ class multiworker
         // should use
         synchronized (this)
         {
-            // loop f[i];
+            // loop FunThread[i];
             t1.wait();
             t2.wait();
             t3.wait();

@@ -1,9 +1,7 @@
 // hard
 
+class LRUCache {
 
-public class LRUCache {
-
-    // inner node class
     class Node
     {
         int key;
@@ -11,110 +9,95 @@ public class LRUCache {
         Node pre;
         Node next;
 
-        Node(int key, int val, Node pre, Node next)
+        Node(int key, int val)
         {
             this.key = key;
             this.val = val;
-            this.pre = pre;
-            this.next = next;
+            pre = next = null;
         }
     }
 
-    // instance variables
     private Map<Integer, Node> map;
-    // we need two nodes as boundary
+    private int cap;
+    // dummy head and tail
     private Node head;
     private Node tail;
-    private int cap;
 
-    // helper methods
-    // add right after dummy
-    private void addNodeToHead(Node n)
+
+    public LRUCache(int capacity)
     {
-        // be careful
-        n.next = head.next;
-        head.next = n;
-
-        n.next.pre = n;
-        n.pre = head;
-    }
-
-    // fetch selected node
-    private Node fetchNodeOut(Node n)
-    {
-        n.pre.next = n.next;
-        n.next.pre = n.pre;
-        // clean
-        n.next = null;
-        n.pre = null;
-
-        return n;
-    }
-
-    // delete redundant node
-    private Node deleteNodeAtEnd()
-    {
-        Node n = tail.pre;
-        n.pre.next = tail;
-        tail.pre = n.pre;
-
-        // clean
-        n.next = null;
-        n.pre = null;
-        return n;
-    }
-
-    // =================================
-    public LRUCache(int capacity) {
-        map = new HashMap<>(capacity);
-        this.cap = capacity;
-
-        head = new Node(0, 0, null, null);
-        tail = new Node(0, 0, head, null);
+        // initialize instance variables
+        map = new HashMap<>();
+        cap = capacity;
+        head = new Node(0, 0);
+        tail = new Node(0, 0);
+        // connect
         head.next = tail;
+        tail.pre = head;
     }
 
-    public int get(int key) {
-        Node n = map.getOrDefault(key, null);
-        if (n == null) { return -1; }
-        // reorder
-        n = fetchNodeOut(n);
-        addNodeToHead(n);
-
-
+    public int get(int key)
+    {
+        if (!map.containsKey(key)) { return -1; }
+        Node n = map.get(key);
+        // update doubly linked list
+        remove(n);
+        addAtHead(n);
+        // return val
         return n.val;
     }
 
-    public void put(int key, int value) {
-        // exist?
-        Node n = map.getOrDefault(key, null);
-        if (n != null)
+    private void remove(Node n)
+    {
+        n.pre.next = n.next;
+        n.next.pre = n.pre;
+
+        n.pre = n.next = null;
+    }
+
+    private void addAtHead(Node n)
+    {
+        n.next = head.next;
+        n.pre = head;
+
+        head.next.pre = n;
+        head.next = n;
+    }
+
+    public void put(int key, int value)
+    {
+        if (map.containsKey(key))
         {
+            // update value and position
+            Node n = map.get(key);
             n.val = value;
-            // reorder
-            n = fetchNodeOut(n);
-            addNodeToHead(n);
+            get(key);
             return;
         }
 
-        n = new Node(key, value, null, null);
-        // exceeds
-        // be careful >= not >!!!
-        if (map.size() == cap)
+        // create new node
+        Node n = new Node(key, value);
+        if (map.size() >= cap)
         {
-            Node tmp = deleteNodeAtEnd();
-            // delete corresponging item in map
-            map.remove(tmp.key);
+            if (cap == 0) { return; }
+
+            // remove least used Node
+            Node t = removeLeastNode();
+            map.remove(t.key);
+            // System.out.println(t.key);
         }
-        addNodeToHead(n);
+        // add right after head
+        addAtHead(n);
         map.put(key, n);
     }
+
+    private Node removeLeastNode()
+    {
+        Node n = tail.pre;
+        remove(n);
+        return n;
+    }
 }
-
-
-
-
-
 
 /**
  * Your LRUCache object will be instantiated and called as such:
