@@ -48,3 +48,5 @@ class Mechanism
 
 // fire event once， after fire, no need to do synchronization, we shoud execute
 // threads concurrently, to run(cb)
+
+// no need lock at all
