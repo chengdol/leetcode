@@ -30,6 +30,7 @@ class Solution {
         }
 
         // pop node from stack and build final result
+        // 也可以边计算边构造
         List<ListNode> res = new ArrayList<>();
         int carrier = 0;
         int operand1 = 0;
