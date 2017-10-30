@@ -1,5 +1,6 @@
 // medium
 
+
 /**
  * Definition for a binary tree node.
  * public class TreeNode {
@@ -10,41 +11,43 @@
  * }
  */
 class Solution {
-    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-
-        List<List<Integer>> res = new ArrayList<>();
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root)
+    {
+        List<List<Integer>> res = new LinkedList<>();
+        
         if (root == null) { return res; }
-
+        
+        Queue<TreeNode> que = new LinkedList<>();
+        que.add(root);
+        // flag
         boolean zigzag = true;
-        Queue<TreeNode> que = new ArrayDeque<>();
-
-        que.offer(root);
+        
         while (!que.isEmpty())
         {
             int size = que.size();
-            List<Integer> level = new LinkedList<>();
-
+            List<Integer> cur = new LinkedList<>();
+            
             for (int i = 0; i < size; i++)
             {
-                // from left to right
                 TreeNode n = que.poll();
-                if (zigzag == true)
+                // 只在构建每层的时候控制顺序
+                if (zigzag)
                 {
-                    level.add(n.val);
+                    cur.add(n.val);
                 }
-                // from right to left
                 else
                 {
-                    level.add(0, n.val);
-                }
-
-                if (n.left != null) { que.offer(n.left); }
-                if (n.right != null) { que.offer(n.right); }
+                    cur.add(0, n.val);
+                }    
+                // 队列仍然是先左后右
+                if (n.left != null) { que.add(n.left); }
+                if (n.right != null) { que.add(n.right); }
             }
-
-            if (!level.isEmpty()) { res.add(level); }
+            
             zigzag = !zigzag;
+            res.add(cur);
         }
+        
         return res;
     }
 }
