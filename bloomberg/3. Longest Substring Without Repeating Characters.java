@@ -19,6 +19,7 @@ public int lengthOfLongestSubstring(String s)
         }
         else
         {
+            // this while loop is redandent!
             while (l < r && s.charAt(l) != c)
             {
                 set.remove(s.charAt(l));
