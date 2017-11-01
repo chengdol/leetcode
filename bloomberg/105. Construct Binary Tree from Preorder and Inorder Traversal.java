@@ -10,6 +10,14 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
+
+
+// 还要会post in order 去构造tree
+// link:
+// https://goo.gl/bpAibk
+// construt by in and post order
+
+
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder)
     {
@@ -26,9 +34,10 @@ class Solution {
     private TreeNode buildSubTree(int[] pre, int preStart, int preEnd, int[] in, int inStart, int inEnd, Map<Integer, Integer> inMap)
     {
         // 说明该node不存在，只能为null
+        // 这个结束条件不好想
         if (preStart > preEnd) { return null; }
 
-        // 主要依靠pre-order中的内容建造tree, in-order只要用来提供左右子树node数量
+        // 主要依靠pre-order中的内容建造tree, in-order只用来提供左右子树node数量
         TreeNode n = new TreeNode(pre[preStart]);
         int nIdx = inMap.get(pre[preStart]);
         int leftNum = nIdx - inStart;
