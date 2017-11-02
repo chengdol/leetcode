@@ -1,34 +1,40 @@
 // medium
 
 
+// 自己写的好理解一些
 class Solution {
-    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-
+    public int uniquePathsWithObstacles(int[][] obstacleGrid)
+    {
         int[][] ob = obstacleGrid;
-        int h = ob.length;
-        int w = ob[0].length;
-
-        int[] dp = new int[w];
+        int[] dp = new int[ob[0].length];
         // init
-        // 起始
-        dp[0] = 1;
-
-        for (int i = 0; i < h; i++)
+        // 遇到1，后面的都走不通了
+        for (int i = 0; i < ob[0].length; i++)
         {
-            for (int j = 0; j < w; j++)
+            if (ob[0][i] == 0) { dp[i] = 1; }
+            else { break; }
+        }
+
+        for (int k = 1; k < ob.length; k++)
+        {
+            for (int i = 0; i < dp.length; i++)
             {
-                if (ob[i][j] == 1)
+                if (i == 0)
                 {
-                    dp[j] = 0;
+                    // 如果ob[k][i]不是1，dp[0]都继承的上一次的dp[0]
+                    dp[i] = ob[k][i] == 1? 0 : dp[i];
+                    continue;
                 }
-                else if (j > 0)
+
+                if (ob[k][i] == 1) { dp[i] = 0; }
+                else
                 {
-                    // dp[j]是上一行的,dp[j-1]是当前行的
-                    dp[j] = dp[j] + dp[j - 1];
+                    dp[i] += dp[i - 1];
                 }
             }
         }
 
-        return dp[w - 1];
+
+        return dp[dp.length - 1];
     }
 }
