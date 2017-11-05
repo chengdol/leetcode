@@ -1,51 +1,49 @@
 // medium
 
-// easy to do with dfs
 class Solution {
-    public int nextGreaterElement(int n) {
+    public int nextGreaterElement(int n)
+    {
+        char[] num = String.valueOf(n).toCharArray();
 
-        char[] digits = String.valueOf(n).toCharArray();
+        // not possible?
+        int i = num.length - 1;
+        while (i > 0 && num[i] <= num[i - 1]) { i--; }
+        // this means all digits in descending order, bigest number!
+        if (i == 0) { return -1; }
 
-        // find the number that smaller then its next one
-        int s = digits.length - 2;
-        while (s >= 0 && digits[s] >= digits[s + 1]) { s--; }
+        i -= 1;
+        // from right, find the first digit greater than num[i];
+        int j = num.length - 1;
+        while (num[j] <= num[i]) { j--; }
 
-        // descend-order, e.g: 54321, no result
-        if (s < 0) { return -1; }
-
-        // find the smallest number larger then digits[s] in right side partition by digits[s]
-        int t = digits.length - 1;
-        while (digits[t] <= digits[s]) { t--; }
-
-        // swap s and t
-        swap(digits, s, t);
-        // reverse right side
-        reverse(digits, s + 1);
+        // swap num[i] and num[j]
+        swap(num, i, j);
+        // reverse right part partitioning at idx i;
+        // 这部分已经是descending order了
+        reverse(num, i + 1, num.length - 1);
 
         try
         {
-            return Integer.parseInt(String.valueOf(digits));
+            return Integer.valueOf(String.valueOf(num));
         }
-        catch(NumberFormatException e)
+        catch (Exception e)
         {
-            // placeholder
+            return -1;
         }
-        return -1;
     }
 
-    private void swap(char[] arr, int i, int j)
+    private void swap(char[] num, int i, int j)
     {
-        arr[i] ^= arr[j];
-        arr[j] ^= arr[i];
-        arr[i] ^= arr[j];
+        char tmp = num[i];
+        num[i] = num[j];
+        num[j] = tmp;
     }
 
-    private void reverse(char[] arr, int s)
+    private void reverse(char[] num, int i, int j)
     {
-        int e = arr.length - 1;
-        while (s < e)
+        while (i < j)
         {
-            swap(arr, s++, e--);
+            swap(num, i++, j--);
         }
     }
 }
