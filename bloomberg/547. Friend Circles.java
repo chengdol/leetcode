@@ -6,38 +6,42 @@
 class Solution {
     public int findCircleNum(int[][] M)
     {
-        if (M == null || M.length == 0 || M[0].length == 0) { return 0; }
-        // I use union find
-        int num = M.length;
-        int[] uf = new int[num];
+        // square matrix
+        int[] uf = new int[M.length];
         // init
-        for (int i = 0; i < uf.length; i++) { uf[i] = i; }
+        for (int i = 0; i < uf.length; i++)
+        {
+            uf[i] = i;
+        }
 
+        int cnt = uf.length;
         for (int i = 0; i < M.length; i++)
         {
-            for (int j = 0; j < M[0].length; j++)
+            // skip i == j and j < i part sicne symmetic
+            for (int j = i + 1; j < M.length; j++)
             {
-                if (i != j && M[i][j] == 1)
+                if (M[i][j] == 1)
                 {
-                    int pi = findRoot(uf, i);
-                    int pj = findRoot(uf, j);
+                    int rootI = findRoot(uf, i);
+                    int rootJ = findRoot(uf, j);
 
-                    if (pi != pj)
+                    // union
+                    if (rootI != rootJ)
                     {
-                        num--;
-                        // union
-                        uf[pi] = pj;
+                        cnt--;
+                        uf[rootI] = rootJ;
                     }
+
                 }
             }
         }
 
-        return num;
+        return cnt;
     }
 
     private int findRoot(int[] uf, int i)
     {
-        while (uf[i] != i)
+        while (i != uf[i])
         {
             // path compression
             uf[i] = uf[uf[i]];
