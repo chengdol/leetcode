@@ -10,7 +10,8 @@ class Solution {
 
         // sort array
         Arrays.sort(nums);
-        // last two if for nums[lo] and nums[hi]
+        // 为什么是num.length - 1，因为选择的是num[i]
+        // 再对i + 1, num.length - 1使用two pointer
         for (int i = 0; i < nums.length - 2; i++)
         {
             // skip duplicates

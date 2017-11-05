@@ -1,38 +1,36 @@
 // medium
 
 class Solution {
-    public int threeSumClosest(int[] nums, int target) {
-
-        // assume nums.length >= 3
+    public int threeSumClosest(int[] nums, int target)
+    {
+        // sort array
+        // 为什么这里还要sort?因为还是要和target比较，去缩小差值！
         Arrays.sort(nums);
 
+        // init
         int res = nums[0] + nums[1] + nums[2];
-        int diff = Math.abs(target - res);
+        int diff = Math.abs(res - target);
 
-        // O(n2), two pointers
         for (int i = 0; i < nums.length - 2; i++)
         {
-            int j = i + 1;
-            int k = nums.length - 1;
+            int lo = i + 1;
+            int hi = nums.length - 1;
 
-            while (k > j)
+            while (lo < hi)
             {
-                int tmp = nums[i] + nums[j] + nums[k];
-                if (tmp == target) { return tmp; }
-                // decrease k to smaller
-                else if (tmp > target) { k--; }
-                // increase j to larger
-                else { j++; }
-
-                // update
-                if (Math.abs(target - tmp) < diff)
+                int sum = nums[i] + nums[lo] + nums[hi];
+                if (Math.abs(sum - target) < diff)
                 {
-                    diff = Math.abs(target - tmp);
-                    res = tmp;
+                    diff = Math.abs(sum - target);
+                    res = sum;
                 }
+
+                // compare
+                if (sum == target) { return sum; }
+                else if (sum > target) { hi--; }
+                else { lo++; }
             }
         }
-
         return res;
     }
 }
