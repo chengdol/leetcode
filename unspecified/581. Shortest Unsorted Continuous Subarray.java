@@ -15,3 +15,30 @@ Then length of the input array is in range [1, 10,000].
 The input array may contain duplicates, so ascending order here means <=.
 */
 
+class Solution {
+    public int findUnsortedSubarray(int[] nums) 
+    {
+        
+        int start = nums.length;
+        int end = -1;
+        
+        int tmp = nums[0];
+        for (int i = 0; i < nums.length; i++)
+        {
+            if (tmp > nums[i])
+            {
+                start = Math.min(start, i);
+                end = Math.max(end, i + 1);
+                
+            }
+            else
+            {
+                // update tmp
+                tmp = nums[i];
+            }
+
+        }
+        
+        return end != -1? end - start + 1: 0;
+    }
+}
