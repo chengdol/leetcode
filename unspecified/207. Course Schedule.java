@@ -27,7 +27,7 @@ You may assume that there are no duplicate edges in the input prerequisites.
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) 
     {           
-        //
+        // use 2 maps
         Map<Integer, Set<Integer>> to = new HashMap<>();
         Map<Integer, Set<Integer>> from = new HashMap<>();
         
